@@ -1,39 +1,48 @@
-import tensorflow as tf
-import fnn_model
+from models import fnn_model
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 
-(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
-x_train = x_train[:1000]
-y_train = y_train[:1000]
-x_test = x_test[:1000]
-y_test = y_test[:1000]
+train = pd.read_csv("train.csv")
 
-input_size = 28 * 28 #* 3
+Y_train = train["label"]
+# Drop 'label' column
+X_train = train.drop(labels = ["label"],axis = 1)
+# free some space
+del train
+
+# Reshape image in 3 dimensions (height = 28px, width = 28px , canal = 1)
+X_train_r = X_train.values.reshape(42000, -1)
+
+
+input_size = 32 * 32 * 3
 hidden_size = 100
 output_size = 10
 
 
-weights = {}
-weights['W1'] = 0.00001 * np.random.randn(input_size, hidden_size)
-weights['b1'] = np.zeros(hidden_size)
-weights['W2'] = 0.00001 * np.random.randn(hidden_size, output_size)
-weights['b2'] = np.zeros(output_size)
+model = fnn_model.TwoLayerNet(input_size=input_size,
+                              hidden_size=hidden_size,
+                              output_size=10)
 
+model.train(X_train_r, Y_train, X_train_r, Y_train)
 
-x_train_r = x_train.reshape(1000, -1)
-x_train_r.shape
+preds = model.predict(X_train_r)
 
-x_test_r = x_test.reshape(1000, -1)
+train_acc = (model.predict(X_train_r) == Y_train).mean()
+print(preds)
+print(Y_train)
 
-model = fnn_model.FNN(weights)
+pixels = X_train_r[10]
 
-model.train(x_train_r, y_train)
+# Make those columns into a array of 8-bits pixels
+# This array will be of 1D with length 784
+# The pixel intensity values are integers from 0 to 255
+pixels = np.array(pixels, dtype='uint8')
+pixels = pixels.reshape((28, 28))
+plt.imshow(pixels, cmap='gray')
+plt.show()
 
-preds = model.predict(x_test_r)
-
-train_acc = (model.predict(x_test_r) == y_train).mean()
-print(train_acc)
 
 
 

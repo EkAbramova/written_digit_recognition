@@ -1,10 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="../static/bootstrap.min.css">
+    <!-- Site CSS -->
+    <link rel="stylesheet" href="../static/style.css">
+
+
 <head>
     <meta charset="UTF-8">
-    <title>$Title$</title>
+    <title>Written Digit Recognition</title>
 </head>
 <body>
-$END$
+    <header class="header header_style_01">
+        <nav class="navbar header-nav navbar-expand-lg">
+            <div class="container">
+				<a class="navbar-brand" href="index.html"><img src="../images/digit_recognizer.png" alt="image"></a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarApp" aria-controls="navbarApp" aria-expanded="false" aria-label="Toggle navigation">
+					<span></span>
+					<span></span>
+					<span></span>
+				</button>
+                <div class="collapse navbar-collapse justify-content-end" id="navbarApp">
+                    <ul class="navbar-nav">
+                        <li><a class="nav-link active" href="#home">About the project</a></li>
+                        <li><a class="nav-link" href="#features">Project description</a></li>
+                        <li><a class="nav-link" href="#download">Models</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+
+    <div class="container">
+        <div class="row clearfix">
+            <div class="col-md-3" align="center">
+				<div style="position: relative;">
+					<canvas id="the_stage" width="200" height="200" align="center" style="border:1px solid #000000;">Canvas</canvas><br>
+                </div>
+				<div style="position: relative;">
+					<button type="button" class="btn btn-default butt" onclick="clearCanvas()" align="center">Clear</button>
+					<button type="button" class="btn btn-default butt" id="pred" onclick="predict()" align="center">Predict</button>
+					</div>
+            </div>
+        </div>
+    </div>
+
+<script src="static/draw.js"></script>
+
 </body>
 </html>

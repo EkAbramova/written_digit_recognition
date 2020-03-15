@@ -1,12 +1,12 @@
 import os
-from flask import Flask
-
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-@app.route('/')
-def hello():
-    return "Hello World!"
+
+@app.route("/", methods=["POST", "GET", 'OPTIONS'])
+def index_page():
+	return render_template('templates/index.html')
 
 
 @app.route('/<name>')
