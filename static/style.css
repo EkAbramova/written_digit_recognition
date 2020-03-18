@@ -28,9 +28,6 @@ body {
     line-height: 1.80857;
 }
 
-body.demos .section {
-    background: url(images/bg.png) repeat top center #f2f3f5;
-}
 
 body.demos .section-title img {
     max-width: 280px;
@@ -78,7 +75,7 @@ h6 {
     padding: 0 0 10px 0;
     font-weight: normal;
     line-height: 120% !important;
-    color: #1f1f1f;
+    color: #4682B4;
     margin: 0
 }
 
@@ -172,6 +169,52 @@ html, body{
 }
 
 
+#the_stage
+{
+    margin-top: 10%;
+	border:1px solid #999;
+    border-radius: 4px;
+	padding: 0;
+    display: block;
+}
+
+#pred_text
+{
+    margin-top: 30%;
+	font-weight: bold;
+	font-size: 200%;
+	color: black;
+}
+
+#rec_result
+{
+	margin: 0px 30px 0px 30px;
+	font-size: 200%;
+}
+
+.btn
+{
+	padding: 0;
+    margin-left: auto;
+    background-color: #DCDCDC;
+    color: black;
+}
+
+.btn:hover {
+background-color: #4682B4;
+}
+
+.butt
+{
+
+    margin: 0px 10px 0px 10px;
+    width: 90px;
+    font-size: 16px;
+    padding: 0;
+    margin-left: auto;
+
+}
+
 /*------------------------------------------------------------------
     HEADER
 -------------------------------------------------------------------*/
@@ -182,7 +225,7 @@ html, body{
 	z-index: 3;
 }
 .header_style_01 .header-nav{
-	background: #ffffff;
+	background: #DCDCDC;
 }
 .header-nav .navbar-toggler span {
   background: #ffffff;
@@ -206,7 +249,7 @@ html, body{
 
 .right-btn a{
 	display: inline-block;
-	padding: 5px 20px;
+	padding: 5px 10px;
 	font-size: 18px;
 	border: 1px solid #ffffff;
 	color: #ffffff;

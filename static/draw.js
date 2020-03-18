@@ -24,8 +24,6 @@ function start_canvas () {
     canvas.onmousemove = function (event) {mousemove(event)};
     canvas.onmouseup = function (event) {mouseup(event)};
 
-    alert("I am an alert box!")
-
     //canvas.onmouseout = function (event) {mouseup(event)};
     //canvas.ontouchstart = function (event) {touchstart(event)};
     //canvas.ontouchmove = function (event) {touchmove(event)};
@@ -100,3 +98,15 @@ function draw() {
     context.fillStyle = '#ffffff';
     context.fillRect(0, 0, 200, 200);
 }
+
+function clearCanvas() {
+    window.alert("I am an alert box!")
+    context.clearRect (0, 0, 200, 200);
+
+}
+
+function predict() {
+
+}
+
+onload = start_canvas;
