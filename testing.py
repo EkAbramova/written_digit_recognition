@@ -8,7 +8,7 @@ sns.set()
 
 import tensorflow as tf
 
-
+## picture!!!
 ## Xavier initialization
 ## prediction for single
 ## pic for confusion matrix ??
