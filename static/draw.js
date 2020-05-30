@@ -100,13 +100,58 @@ function draw() {
 }
 
 function clearCanvas() {
-    window.alert("I am an alert box!")
-    context.clearRect (0, 0, 200, 200);
+    context.fillStyle = '#ffffff';
+    context.fillRect(0, 0, 200, 200)
+
+    document.getElementById("hidable").style.display = "none";
+
 
 }
 
-function predict() {
 
+function predict_result() {
+
+    var canvas = document.getElementById("the_stage");
+    var dataURL = canvas.toDataURL('image/jpg');
+
+    $.ajax({
+        type: "POST",
+        url: "/hook2",
+        data:{
+			imageBase64: dataURL
+
+		}
+    }).done(function(resp_data) {
+
+        var response = JSON.parse(resp_data)
+
+        if (response  == "Can't recognize - nothing is drawn!") {
+            alert(response)
+        } else {
+
+        document.getElementById("hidable").style.display = "block";
+
+        document.getElementById("fnn1").innerHTML = response['fnn1'];
+		document.getElementById("fnn2").innerHTML = response['fnn2'];
+		document.getElementById("fnn3").innerHTML = response['fnn3'];
+
+		document.getElementById("fnn1_proba").innerHTML = response['fnn1_proba'];
+		document.getElementById("fnn2_proba").innerHTML = response['fnn2_proba'];
+		document.getElementById("fnn3_proba").innerHTML = response['fnn3_proba'];
+
+		document.getElementById("cnn1").innerHTML = response['cnn1'];
+		document.getElementById("cnn2").innerHTML = response['cnn2'];
+		document.getElementById("cnn3").innerHTML = response['cnn3'];
+
+		document.getElementById("cnn1_proba").innerHTML = response['cnn1_proba'];
+		document.getElementById("cnn2_proba").innerHTML = response['cnn2_proba'];
+		document.getElementById("cnn3_proba").innerHTML = response['cnn3_proba'];
+
+        }
+
+
+    });
 }
+
 
 onload = start_canvas;

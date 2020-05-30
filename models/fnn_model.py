@@ -16,7 +16,7 @@ class TwoLayerNet(object):
     The outputs of the second fully-connected layer are the scores for each class.
     """
 
-    def __init__(self, input_size, hidden_size, output_size, std=1e-4):
+    def __init__(self, weights, mode='predict', input_size=28*28, hidden_size=100, output_size=10, std=1e-4):
         """
         Initialize the model. Weights are initialized to small random values and
         biases are initialized to zero. Weights and biases are stored in the
@@ -32,11 +32,18 @@ class TwoLayerNet(object):
         - hidden_size: The number of neurons H in the hidden layer.
         - output_size: The number of classes C.
         """
-        self.params = dict()
-        self.params['W1'] = std * np.random.randn(input_size, hidden_size)
-        self.params['b1'] = np.zeros(hidden_size)
-        self.params['W2'] = std * np.random.randn(hidden_size, output_size)
-        self.params['b2'] = np.zeros(output_size)
+        self.params = {}
+        self.mode = mode
+        if mode == 'predict':
+            self.params['W1'] = weights['W1']
+            self.params['b1'] = weights['b1']
+            self.params['W2'] = weights['W2']
+            self.params['b2'] = weights['b2']
+        elif mode == 'learn':
+            self.params['W1'] = np.random.randn(input_size, hidden_size) * np.sqrt(2/(input_size+hidden_size))
+            self.params['b1'] = np.zeros(hidden_size)
+            self.params['W2'] = np.random.randn(hidden_size, output_size) * np.sqrt(2/(output_size+hidden_size))
+            self.params['b2'] = np.zeros(output_size)
 
     def loss(self, X, y=None, reg=0.0):
         """
@@ -195,6 +202,22 @@ class TwoLayerNet(object):
         z = np.dot(X, params['W1']) + params['b1']
         h = np.maximum(z, 0)
         out = np.dot(h, params['W2']) + params['b2']
-        y_pred = np.argmax(out, axis=1)
+        exp_scores = np.exp(out)
 
+        probs = exp_scores / np.sum(exp_scores)
+
+        if self.mode == 'learn':
+
+            y_pred = np.argmax(probs, axis=1)
+            return y_pred
+        else :
+            y_pred = np.argmax(out)
+            probs = exp_scores / np.sum(exp_scores)
+            probs = probs.flatten()
+            result_idx = np.argsort(probs)[::-1][:3]
+            top_3 = list(zip(result_idx, np.round(probs[result_idx] * 100, 2)))
+            return top_3
+
+    def predict_single(self, X):
+        y_pred = None
         return y_pred

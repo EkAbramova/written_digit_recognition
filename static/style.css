@@ -5,19 +5,6 @@
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700');
 
 /*------------------------------------------------------------------
-    IMPORT FILES
--------------------------------------------------------------------*/
-
-@import url(css/animate.css);
-@import url(css/flaticon.css);
-@import url(css/hero-slider.css);
-@import url(css/swiper.min.css);
-@import url(css/bootstrap-select.min.css);
-@import url(css/prettyPhoto.css);
-@import url(css/owl.carousel.css);
-@import url(css/font-awesome.min.css);
-
-/*------------------------------------------------------------------
     SKELETON
 -------------------------------------------------------------------*/
 
@@ -214,6 +201,7 @@ background-color: #4682B4;
     margin-left: auto;
 
 }
+
 
 /*------------------------------------------------------------------
     HEADER

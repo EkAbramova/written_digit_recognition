@@ -35,8 +35,7 @@
     </header>
 
 
-
-    <div class="container">
+	<div class="container">
 
         <div class="row clearfix">
             <div class="col-md-3" align="center">
@@ -45,17 +44,54 @@
                 </div>
 				<div style="position: relative;">
 					<button type="button" class="btn btn-primary butt" onClick="clearCanvas()" align="center">Clear</button>
-					<button type="button" class="btn btn-primary butt" id="pred" onClick="predict()" align="center">Predict</button>
+					<button type="button" class="btn btn-primary butt" id="pred" onClick="predict_result()" align="center">Predict</button>
 					</div>
             </div>
 
 
 
-    <div class="col-md-7">
+            <div class="col-md-7">
 				<div class="row" id="pr">
 					<div class="col-md-8"><span id="pred_text">Prediction result:</span> <span id="rec_result"> </span></div>
 					<div class="col-md-4"><button type="button" class="btn btn-default butt" onclick="hide_show()" id="hide_show_btn" style="display: none;">Show info</button></div>
-				</div>
+
+					<div>
+							<table class="table" id="hidable" style="display: none;">
+								<thead>
+									<tr >
+										<th>FNN</th>
+										<th>FNN probability</th>
+										<th>Pytorch CNN</th>
+										<th>Pytorch CNN probability</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td id="fnn1"> </td>
+										<td id="fnn1_proba"> </td>
+										<td id="cnn1"> </td>
+										<td id="cnn1_proba"> </td>
+									</tr>
+									<tr>
+										<td id="fnn2"> </td>
+										<td id="fnn2_proba"> </td>
+										<td id="cnn2"> </td>
+										<td id="cnn2_proba"> </td>
+									</tr>
+									<tr>
+										<td id="fnn3"> </td>
+										<td id="fnn3_proba"> </td>
+										<td id="cnn3"> </td>
+										<td id="cnn3_proba"> </td>
+									</tr>
+
+								</tbody>
+							</table>
+
+					</div>
+
+
+                </div>
         </div>
         </div>
 
@@ -75,7 +111,7 @@
         <div class="col-md-4">
                 <h2>Models performance</h2>
                 <table class="table">
-					<thead>s
+					<thead>
 						<tr>
 							<th>Model</th>
 							<th>MNIST accuracy</th>
@@ -118,9 +154,10 @@
 
     </div>
 
-</div>
     </div>
 
+
+<script src="../static/jquery-3.5.0.min.js"></script>
 <script src="../static/draw.js" type="text/javascript" ></script>
 
 
