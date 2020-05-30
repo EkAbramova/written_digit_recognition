@@ -7,7 +7,7 @@ import torch.nn.functional as F
 import torch.utils.data
 from torch.autograd import Variable
 
-from sklearn.model_selection import train_test_split
+
 
 class CNN(nn.Module):
     def __init__(self):

@@ -1,10 +1,11 @@
 from models import fnn_model
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+#import matplotlib.pyplot as plt
+#import seaborn as sns
+#from sklearn.model_selection import train_test_split
 
-sns.set()
+#sns.set()
 
 import tensorflow as tf
 
