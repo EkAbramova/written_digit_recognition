@@ -1,92 +1,5 @@
-from models import fnn_model
-import numpy as np
-import pandas as pd
-#import matplotlib.pyplot as plt
-#import seaborn as sns
-#from sklearn.model_selection import train_test_split
 
-#sns.set()
-
-import tensorflow as tf
-
-## prediction for single
-## pic for confusion matrix ??
-
-#new module
-# create model, train, save weights
-
-
-
-(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
-
-
-plt.figure()
-plt.imshow(x_train[13], cmap='Greys')
-
-input_size = 28 * 28 * 1
-hidden_size = 100
-output_size = 10
-
-x_train, x_test = x_train / 255.0, x_test / 255.0
-
-x_train = x_train.reshape(x_train.shape[0], input_size)
-x_test = x_test.reshape(x_test.shape[0], input_size)
-
-model = fnn_model.TwoLayerNet(weights=0, mode='learn', input_size=input_size,
-                              hidden_size=hidden_size,
-                              output_size=10)
-
-stats = model.train(x_train, y_train, x_test, y_test, num_iters=10000)
-
-val_acc = (model.predict(x_test) == y_test).mean()
-print('Validation accuracy: ', val_acc)
-##Validation accuracy:  0.8505
-
-plt.plot(stats['loss_history'])
-plt.title('Loss history')
-plt.legend()
-
-
-plt.plot(stats['train_acc_history'], label='train accuracy')
-plt.plot(stats['val_acc_history'], label='validation accuracy')
-plt.title('FNN accuracy')
-plt.legend()
-
-
-np.save('models/updated_weights.npy', model.params)
-np.save('models/original_weights.npy', model.params)
-
-plt.figure(figsize=(20, 5))
-#plt.subplot(2, 1, 1)
-plt.plot(stats['loss_history'])
-plt.title('Loss history')
-plt.xlabel('Iteration')
-plt.ylabel('Loss')
-
-#plt.subplot(2, 1, 2)
-plt.figure(figsize=(20, 5))
-plt.plot(stats['train_acc_history'], label='train')
-plt.plot(stats['val_acc_history'], label='val')
-plt.title('Classification accuracy history')
-plt.xlabel('Epoch')
-plt.ylabel('Clasification accuracy')
-plt.legend()
-plt.show()
-
-
-
-plt.figure()
-plt.imshow(x_test[14].reshape(28, 28), cmap='Greys')
-
-print(model.predict(x_test[14:15]))
-
-model.predict(x_test[20:21])
-
-
-
-################
-
-
+### TRAIN CNN MODEL
 def fit(model, train_loader):
     optimizer = torch.optim.Adam(model.parameters())#,lr=0.001, betas=(0.9,0.999))
     error = nn.CrossEntropyLoss()
@@ -115,14 +28,15 @@ def fit(model, train_loader):
 def evaluate(model):
     correct = 0
     for test_imgs, test_labels in test_loader:
-        #print(test_imgs.shape)
         test_imgs = Variable(test_imgs).float()
         output = model(test_imgs)
         predicted = torch.max(output,1)[1]
         correct += (predicted == test_labels).sum()
     print("Test accuracy:{:.3f}% ".format( float(correct) / (len(test_loader)*BATCH_SIZE)))
 
-cnn = CNN()
+
+
+cnn = cnn_pytorch.CNN()
 
 df = pd.read_csv('models/train.csv')
 BATCH_SIZE = 32
@@ -164,3 +78,22 @@ torch.save(cnn.state_dict(), 'models/cnn_mnist.pt')
 
 #################
 ## confusion matrix
+
+(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
+torch_X_test = torch.from_numpy(x_test).type(torch.LongTensor)
+#torch_y_test = torch.from_numpy(y_train).type(torch.LongTensor)
+torch_X_test = torch_X_test.view(-1, 1, 28, 28).float()/255.0
+
+_, predicted = torch.max(cnn(torch_X_test), 1)
+
+test_labels = predicted.detach().numpy()
+cm = confusion_matrix(test_labels, y_test)
+df_cm = pd.DataFrame(cm)
+
+plt.figure(figsize=(5, 5))
+sns.heatmap(df_cm,  annot=True, cmap='Blues', fmt='g', cbar=False)
+plt.tick_params(axis='both', which='major', labelsize=10, labelbottom = False, bottom=False, top = False, labeltop=True)
+plt.title('Confusion matrix PyTorch CNN', fontweight="bold", fontsize=15)
+
+
+cm.diagonal()/cm.sum(axis=0)

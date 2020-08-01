@@ -207,17 +207,12 @@ class TwoLayerNet(object):
         probs = exp_scores / np.sum(exp_scores)
 
         if self.mode == 'learn':
-
             y_pred = np.argmax(probs, axis=1)
             return y_pred
-        else :
+        else:
             y_pred = np.argmax(out)
             probs = exp_scores / np.sum(exp_scores)
             probs = probs.flatten()
             result_idx = np.argsort(probs)[::-1][:3]
             top_3 = list(zip(result_idx, np.round(probs[result_idx] * 100, 2)))
             return top_3
-
-    def predict_single(self, X):
-        y_pred = None
-        return y_pred

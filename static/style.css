@@ -15,11 +15,20 @@ body {
     line-height: 1.80857;
 }
 
+p {
+    color: #696969;
+    font-size: 15px;
+    font-family: 'Josefin Sans', sans-serif;
+    line-height: 1.5;
+}
+
 
 body.demos .section-title img {
     max-width: 280px;
     display: block;
     margin: 10px auto;
+    border: 2px
+
 }
 
 body.demos .service-widget h3 {
@@ -141,8 +150,9 @@ blockquote {
 
 ul, li, ol{
 	list-style: none;
-	margin: 0px;
-	padding: 0px;
+	color: #696969;
+    font-size: 15px;
+
 }
 
 

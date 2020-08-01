@@ -1,6 +1,3 @@
-import numpy as np # to handle matrix and data operation
-import pandas as pd # to read csv and handle dataframe
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
