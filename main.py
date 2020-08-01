@@ -14,6 +14,10 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 def index_page():
 	return render_template('index.html')
 
+@app.route("/models")
+def models():
+	return render_template('models.html')
+
 @app.route('/hook2', methods = ["GET", "POST", 'OPTIONS'])
 def main_predict():
 	"""
